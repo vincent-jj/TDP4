@@ -22,9 +22,6 @@ void dgemm(const CBLAS_ORDER Order, const CBLAS_TRANSPOSE TransA,
                  const int K, const double alpha, const double *A,
                  const int lda, const double *B, const int ldb,
                  const double beta, double *C, const int ldc){
-    assert(Order == CblasColMajor);
-    assert(beta == 1.0);
-
     int i, j, k;
     for(j = 0; j<N; j++)
         for(i = 0; i<M; i++)

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <mpi.h>
+#include <math.h>
 /*
   Local libraries included
  */
@@ -32,9 +33,7 @@ int communicator_dispatch(int nb_proc_tot,
 
 /* TODO : Check validity of this part */
   // Heavily used variables
-  unsigned op, res, one;
-  op = (unsigned) nb_proc_tot;
-  res = 0;
+  int res = (int)sqrt((double)nb_proc_tot);
 
   *nb_proc_row = (int)res;
 
@@ -44,10 +43,12 @@ int communicator_dispatch(int nb_proc_tot,
 
   MPI_Cart_create(MPI_COMM_WORLD, 2, dimensions, periods, 1, new_communicator);
   if(*new_communicator != MPI_COMM_NULL){
-    MPI_Comm_rank(*new_communicator, rank);
+    MPI_Comm_rank(*new_communicator,rank);
   }
-  else
+  else{
+    MPI_Finalize();
     return EXIT_FAILURE;
+  }
 
   // WARNING : some processes might be not necessary to the execution :
   // Cause : nb_proc_tot != perfect square !

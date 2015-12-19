@@ -3,8 +3,8 @@
 
 // WARNING Matrix is row major !
 struct matrix{
-  double *table;
   int size;
+  double *table;
 };
 
 int random_matrix(struct matrix *m,
